@@ -2,8 +2,6 @@ import * as service from "../service/studentService.js";
 import {scoreSchema, studentSchema, updateStudentSchema} from "../validator/studentValidator.js";
 
 
-
-
 export const addStudent = async (req, res) => {
     const {error} = studentSchema.validate(req.body);
     if (error) {

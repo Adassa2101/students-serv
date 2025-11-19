@@ -1,17 +1,18 @@
 import * as repo from "../repository/studentRepository.js";
+import {updateStudentScores} from "../repository/studentRepository.js";
 
 
 export const addStudent = async ({id, name, password}) => {
-    if (await repo.findStudentById(id)) {
+    if (await repo.findStudentById( id )) {
         return false;
     }
-    await repo.createStudent({_id: id, name, password});
+    await repo.createStudent( {_id: id, name, password} );
     return true;
 }
 
 
 export const findStudent = async id => {
-    const student = await repo.findStudentById(id);
+    const student = await repo.findStudentById( id );
     if (student) {
         student.password = undefined;
     }
@@ -20,7 +21,7 @@ export const findStudent = async id => {
 
 
 export const deleteStudent = async id => {
-    const student = await repo.deleteStudentById(id);
+    const student = await repo.deleteStudentById( id );
     if (student) {
         student.password = undefined;
     }
@@ -29,7 +30,7 @@ export const deleteStudent = async id => {
 
 
 export const updateStudent = async (id, data) => {
-    const student = await repo.updateStudent(id, data);
+    const student = await repo.updateStudent( id, data );
     if (student) {
         student.scores = undefined;
     }
@@ -38,20 +39,27 @@ export const updateStudent = async (id, data) => {
 
 
 export const addScore = async (id, exam, score) => {
-    // TODO
+    const student = await repo.updateStudentScores( id, exam, minScore );
+
 }
 
 
 export const findByName = async (name) => {
-    // TODO
+    const students = await repo.findStudentByName( name );
+    return students.map( student => {
+        student.password = undefined;
+        return student;
+    } )
+
 }
 
-
-export const countByNames = async (names) => {
-    // TODO
-}
-
+export const countByNames =  (names) => repo.countStudentsByName( names );
+//тк есть в сontroller async тут можно не делать но лучше для однообразия делать
 
 export const findByMinScore = async (exam, minScore) => {
-    // TODO
+    const students = await repo.findStudentsByMinScore( exam, minScore );
+    return students.map( student => {
+        student.password = undefined;
+        return student;
+    } )
 }

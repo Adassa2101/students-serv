@@ -12,7 +12,13 @@ const studentSchema = new mongoose.Schema({
             default: {}
         }
     }, {
-        versionKey: false
+        versionKey: false,
+    toJSON: {
+            transform(doc, ret) {
+                ret.id = ret._id;
+                delete ret._id;
+            }
+    }
     }
 )
 
