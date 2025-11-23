@@ -1,5 +1,5 @@
 import * as repo from "../repository/studentRepository.js";
-import {updateStudentScores} from "../repository/studentRepository.js";
+
 
 
 export const addStudent = async ({id, name, password}) => {
@@ -39,7 +39,7 @@ export const updateStudent = async (id, data) => {
 
 
 export const addScore = async (id, exam, score) => {
-    const student = await repo.updateStudentScores( id, exam, minScore );
+    const student = await repo.updateStudentScores( id, exam, score );
 
 }
 
